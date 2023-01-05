@@ -60,11 +60,7 @@ const LeftBar = () => {
   return (
     <div className="leftBar">
       <Link to="/" style={{ textDecoration: "none" }}>
-        <img
-          src="https://firebasestorage.googleapis.com/v0/b/olx-clone-baa1d.appspot.com/o/items%2F1672166900627imglogo.png?alt=media&token=69e66ac9-074f-40e3-b96d-a86990f6dbae"
-          alt="logos"
-          className="logo"
-        />
+        <span className="logo">Socialista</span>
       </Link>
 
       <div className="container">

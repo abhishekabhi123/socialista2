@@ -11,8 +11,14 @@ function verify(req, res, next) {
       if (err) res.status(404).json("Token is not valid!") && next([err]);
       // if (err) next();
       else {
-        req.user = user;
-        next();
+        const userDetails = await User.findById(user.id);
+
+        if (userDetails?.blocked) {
+          return res.status(401).json("You are blocked by admin!");
+        } else {
+          req.user = user;
+          next();
+        }
       }
     });
   } else {
@@ -20,6 +26,15 @@ function verify(req, res, next) {
     // next()
   }
 }
+const verifyTokenAndAdmin = (req, res, next) => {
+  verify(req, res, () => {
+    if (req.user.isAdmin) {
+      next();
+    } else {
+      res.status(403).json("you are not allowed to do that");
+    }
+  });
+};
 
 const verifyTokenAndAuthorization = (req, res, next) => {
   verify(req, res, async () => {
@@ -32,4 +47,4 @@ const verifyTokenAndAuthorization = (req, res, next) => {
     }
   });
 };
-module.exports = { verify, verifyTokenAndAuthorization };
+module.exports = { verify, verifyTokenAndAuthorization, verifyTokenAndAdmin };

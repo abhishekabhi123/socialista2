@@ -19,6 +19,27 @@ exports.updateUser = async (req, res) => {
     return res.status(500).json(err);
   }
 };
+exports.blockUser = async (req, res) => {
+  try {
+    await User.findByIdAndUpdate(req.params.id, {
+      $set: { blocked: true },
+    });
+    res.status(200).json("Account blocked successfully");
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+};
+
+exports.unblock = async (req, res) => {
+  try {
+    await User.findByIdAndUpdate(req.params.id, {
+      $set: { blocked: false },
+    });
+    res.status(200).json("Account unblocked successfully");
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+};
 
 exports.getUser = async (req, res) => {
   try {
@@ -107,6 +128,14 @@ exports.unfollow = async (req, res) => {
     }
   } else {
     res.status(403).json("you cant unfollow yourself");
+  }
+};
+exports.deleteUser = async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.params.id);
+    res.status(200).json("Account has been deleted");
+  } catch (err) {
+    return res.status(500).json(err);
   }
 };
 

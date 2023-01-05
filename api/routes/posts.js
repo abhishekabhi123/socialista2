@@ -54,5 +54,19 @@ router.put("/unComment/:id", verify, unComment);
 
 //user's post
 router.get("/profile/:id", verify, userPosts);
+//all posts
+router.get("/", verifyTokenAndAdmin, allPosts);
+
+//report post
+router.get("/reports/:id", verify, allReports);
+
+//report post
+router.put("/:id/report", verify, reportPost);
+
+//reject report
+router.delete("/:id/report", verify, rejectReport);
+
+//resolve report
+router.delete("/:id/rejectReport", verify, resolveReport);
 
 module.exports = router;

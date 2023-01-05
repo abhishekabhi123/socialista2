@@ -1,7 +1,7 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-// const Admin = require("../models/Admin");
+const Admin = require("../models/Admin");
 require("dotenv").config();
 const serverSID = process.env.Twilio_ServerSID;
 const accoutSid = process.env.ACCOUNT_SID;
@@ -67,6 +67,55 @@ exports.userLogin = async (req, res) => {
             .cookie("accessToken", accessToken, {
               httpOnly: true,
               secure: true,
+            })
+            .status(200)
+            .json({ other, accessToken });
+        }
+      }
+    } else {
+      res.status(400).json("please fill all the credentials");
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+exports.adminLogin = async (req, res) => {
+  try {
+    if (req.body.email && req.body.password) {
+      const user = await Admin.findOne({
+        email: req.body.email,
+      });
+      !user && res.status(404).json("user not found");
+
+      if (user) {
+        const validPassword = await bcrypt.compare(
+          req.body.password,
+          user.password
+        );
+        !validPassword && res.status(400).json("wrong password");
+
+        if (validPassword) {
+          const accessToken = jwt.sign(
+            { id: user._id, email: user.email, isAdmin: user.isAdmin },
+            process.env.SECRET,
+            { expiresIn: "5d" }
+          );
+          const {
+            password,
+            updatedAt,
+            profilePicture,
+            coverPicture,
+            followers,
+            followings,
+            blocked,
+            email,
+            createdAt,
+            ...other
+          } = user._doc;
+
+          res
+            .cookie("accessToken", accessToken, {
+              httpOnly: true,
             })
             .status(200)
             .json({ other, accessToken });

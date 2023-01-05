@@ -1,6 +1,7 @@
 const Post = require("../models/Post");
 const User = require("../models/User");
 const NotificationModel = require("../models/Notification");
+const Report = require("../models/Report");
 exports.createPost = async (req, res) => {
   try {
     req.body.userId = req.user.id;
@@ -182,5 +183,94 @@ exports.allPosts = async (req, res) => {
     res.status(200).json(posts);
   } catch (err) {
     res.status(500).json(err);
+  }
+};
+exports.reportPost = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    console.log(req.user);
+    req.body.userId = req.user.id;
+    req.body.name = req.user?.email;
+    req.body.postId = post._id;
+    req.body.post = post?.img;
+    req.body.desc = post.desc;
+    req.body.type = "post";
+    if (post.reports.filter((e) => e === req.user.id).length <= 0) {
+      /* vendors contains the element we're looking for */
+      await post.updateOne({ $push: { reports: req.user.id } });
+      const newReport = new Report(req.body);
+      const savedReport = await newReport.save();
+
+      res.status(200).json(savedReport);
+    } else {
+      res.status(403).json("you already reported this post");
+    }
+  } catch (err) {
+    res.status(500).json(err);
+    console.log(err);
+  }
+};
+
+exports.allReports = async (req, res) => {
+  try {
+    const reports = await Report.find();
+    res.status(200).json(reports);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+};
+
+exports.rejectReport = async (req, res) => {
+  try {
+    console.log(req.query.name, "test");
+    var isPostFound = true;
+    const post = await Post.findById(req.params.id);
+    console.log(post);
+    // const report = await Report.findById(req.query.id)
+    if (!post) {
+      res.status(403).json("post not found");
+      isPostFound = false;
+    }
+    if (post.userId === req.user.id || req.user.isAdmin) {
+      await post
+        .updateOne({ $pull: { reports: req.query.name } })
+        .then((res) => {
+          console.log(res);
+        });
+      await Report.deleteMany({ _id: req.query.id });
+      res.status(200).json("report removed");
+    } else {
+      res.status(403).json("authorization failed");
+    }
+  } catch (err) {
+    if (isPostFound) {
+      res.status(500).json(err);
+    }
+    console.log(err);
+  }
+};
+
+exports.resolveReport = async (req, res) => {
+  try {
+    var isPostFound = true;
+    const post = await Post.findById(req.params.id);
+    // const report = await Report.findById(req.query.id)
+    if (!post) {
+      res.status(403).json("post not found");
+      isPostFound = false;
+    }
+    if (post.userId === req.user.id || req.user.isAdmin) {
+      await post.deleteOne();
+      await Report.deleteMany({ _id: req.query.id });
+      res.status(200).json("post deleted");
+    } else {
+      res.status(403).json("authorization failed");
+    }
+  } catch (err) {
+    if (isPostFound) {
+      res.status(500).json(err);
+    }
+    console.log(err);
   }
 };

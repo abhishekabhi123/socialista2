@@ -114,13 +114,13 @@ const Comments = ({ post }) => {
           {comment.userId == currentUser._id && (
             <MoreHorizIcon
               onClick={() => {
-                setMenuOpen(!menuOpen);
+                setMenuOpen(comment._id);
                 updateOpen && setUpdateOpen(!updateOpen);
               }}
               style={{ cursor: "pointer" }}
             />
           )}
-          {menuOpen && (
+          {menuOpen === comment._id && (
             <button
               onClick={() => {
                 handleDelete(comment._id, post._id);
