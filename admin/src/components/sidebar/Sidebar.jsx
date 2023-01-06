@@ -2,49 +2,43 @@ import "./sidebar.scss";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import StoreIcon from "@mui/icons-material/Store";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import Book from "@mui/icons-material/Book"
-import Home from "@mui/icons-material/Home"
+import Book from "@mui/icons-material/Book";
+import Home from "@mui/icons-material/Home";
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 const handleLogout = () => {
   Swal.fire({
-    title: 'Do you want to logout?',
-   
+    title: "Do you want to logout?",
+
     showCancelButton: true,
-    confirmButtonText: 'Yes',
-  
+    confirmButtonText: "Yes",
+
     customClass: {
-      actions: 'my-actions',
-      cancelButton: 'order-1 right-gap',
-      confirmButton: 'order-2',
-     
-    }
+      actions: "my-actions",
+      cancelButton: "order-1 right-gap",
+      confirmButton: "order-2",
+    },
   }).then((result) => {
     if (result.isConfirmed) {
       localStorage.removeItem("userToken");
       localStorage.removeItem("user");
-  
-      window.location.replace('/login');
-    } else if (result.isDenied) {
-      
-    }
-  })
-  
 
+      window.location.replace("/login");
+    } else if (result.isDenied) {
+    }
+  });
 };
 const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
   return (
     <div className="sidebar">
-      <div className="top">
-       
-      </div>
-    
+      <div className="top"></div>
+
       <div className="center">
-      <Link to="/" style={{ textDecoration: "none" }}>
-          <span className="logo">Prosper</span>
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <span className="logo">Socialista</span>
         </Link>
         <ul>
           <p className="title">MAIN</p>
@@ -54,7 +48,7 @@ const Sidebar = () => {
               <span>Home</span>
             </li>
           </Link>
-  
+
           <Link to="/users" style={{ textDecoration: "none" }}>
             <li>
               <PersonOutlineIcon className="icon" />
@@ -73,12 +67,14 @@ const Sidebar = () => {
               <span>Reports</span>
             </li>
           </Link>
-        
-         
-         
+
           <p className="title">USER</p>
-         
-          <li onClick={()=>{handleLogout()}}>
+
+          <li
+            onClick={() => {
+              handleLogout();
+            }}
+          >
             <ExitToAppIcon className="icon" />
             <span>Logout</span>
           </li>
