@@ -39,9 +39,9 @@ app.use(
     origin: [
       "http://localhost:3009",
       "https://www.coffetimes.ml",
-      "https://api.prosper-media.cf",
-      "https://admin.prosper-media.cf",
       "http://localhost:4001",
+      "https://socialista-app.onrender.com",
+      "https://socialista-admin.onrender.com",
     ],
   })
 );
