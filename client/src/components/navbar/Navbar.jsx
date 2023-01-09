@@ -78,7 +78,7 @@ const Navbar = () => {
                   </Link>
                 ))
               ) : (
-                <li className="p-3 hover:bg-gray-300 border-b rounded-b-lg border-gray-200">
+                <li className="p-3 hover:bg-gray-500 border-b rounded-b-lg border-gray-200">
                   No results found
                 </li>
               )}
