@@ -3,7 +3,7 @@ const User = require("../models/User");
 function verify(req, res, next) {
   const authHeader =
     req.headers?.cookie?.split("=")[1] || req.headers?.token?.split(" ")[1];
-  console.log(req.headers.token, "this is a token");
+  console.log(req.headers.token, "this is aCCC token");
   if (authHeader) {
     const token = authHeader;
     // console.log(token);
@@ -32,7 +32,7 @@ const verifyTokenAndAdmin = (req, res, next) => {
     if (req.user?.isAdmin) {
       next();
     } else {
-      res.status(403).json("you are not allowed to do that");
+      // res.status(403).json("you are not allowed to do that");
     }
   });
 };

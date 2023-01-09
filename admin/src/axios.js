@@ -2,7 +2,7 @@ import axios from "axios";
 
 const header = localStorage.getItem("accessToken")
   ? {
-      token: `Bearer ${localStorage.getItem("accessToken")}`,
+      token: "Bearer " + localStorage.getItem("accessToken"),
     }
   : {
       token: "Bearer ",
