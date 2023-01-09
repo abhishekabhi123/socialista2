@@ -9,29 +9,35 @@ import axios from "../../axios";
 import { Link } from "react-router-dom";
 
 const Widget = ({ type }) => {
-  const [user, setUser] = useState({})
-  const [post, setPost] = useState({})
-  const [err, setErr] = useState(false)
+  const [user, setUser] = useState({});
+  const [post, setPost] = useState({});
+  const [err, setErr] = useState(false);
   let data;
   useEffect(() => {
-    axios.get(`users/`,{withCredentials:true}).then((res)=>{
-      setUser(res.data)
-     }).catch((e)=>{
-    localStorage.removeItem("user");
-    console.log(e);
-    setErr(e.response.data)
-     })
-  }, [])
+    axios
+      .get(`users/`, { withCredentials: true })
+      .then((res) => {
+        setUser(res.data);
+      })
+      .catch((e) => {
+        // localStorage.removeItem("user");
+        console.log(e);
+        setErr(e.response.data);
+      });
+  }, []);
   useEffect(() => {
-    axios.get(`posts/`,{withCredentials:true}).then((res)=>{
-      setPost(res.data)
-     }).catch((e)=>{
-    localStorage.removeItem("user");
-    window.location.replace('/login')
-     })
-  }, [])
-  
-  
+    axios
+      .get(`posts/`, { withCredentials: true })
+      .then((res) => {
+        setPost(res.data);
+      })
+      .catch((e) => {
+        // localStorage.removeItem("user");
+        // window.location.replace('/login')
+        console.log(e);
+      });
+  }, []);
+
   //temporary
   const amount = 100;
   const diff = 20;
@@ -107,10 +113,10 @@ const Widget = ({ type }) => {
       <div className="left">
         <span className="title">{data.title}</span>
         <span className="counter">
-          {data.isMoney ? post.length:user.length}
+          {data.isMoney ? post.length : user.length}
         </span>
         <Link to={data.link}>
-        <span className="link">See all {data.link}</span>
+          <span className="link">See all {data.link}</span>
         </Link>
       </div>
       <div className="right">

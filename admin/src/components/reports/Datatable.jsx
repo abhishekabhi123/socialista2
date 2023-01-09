@@ -48,6 +48,7 @@ const Applications = () => {
       })
       .catch((err) => {
         // localStorage.removeItem("user");
+        console.log(err);
         setErr(err.response.data);
       });
     //  setData(['Id'])
@@ -79,7 +80,8 @@ const Applications = () => {
               }
             })
             .catch((err) => {
-              localStorage.removeItem("user");
+              // localStorage.removeItem("user");
+              console.log(err);
               setErr(err.response.data);
             });
         }
@@ -109,7 +111,8 @@ const Applications = () => {
               }
             })
             .catch((err) => {
-              localStorage.removeItem("user");
+              // localStorage.removeItem("user");
+              console.log(err);
               setErr(err.response.data);
             });
         }
@@ -142,7 +145,8 @@ const Applications = () => {
               }
             })
             .catch((err) => {
-              localStorage.removeItem("user");
+              // localStorage.removeItem("user");
+              console.log(err);
               setErr(err.response.data);
             });
         } else {
@@ -161,7 +165,8 @@ const Applications = () => {
               }
             })
             .catch((err) => {
-              localStorage.removeItem("user");
+              // localStorage.removeItem("user");
+              console.log(err);
               setErr(err.response.data);
             });
         }
