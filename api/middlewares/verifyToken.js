@@ -2,11 +2,9 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 function verify(req, res, next) {
   const authHeader =
-    req.headers?.cookie?.split("=")[1] || req.headers?.token?.split(" ")[1];
-  console.log(req.headers?.cookie?.split("=")[1]);
-  console.log(req.headers?.token?.split(" ")[1]);
-  console.log(req.headers);
-  console.log(req.cookie);
+    req.headers?.cookie?.split("=")[1] ||
+    req.headers?.token?.split(" ")[1] ||
+    req.headers?.token;
 
   if (authHeader) {
     const token = authHeader;
@@ -33,7 +31,7 @@ function verify(req, res, next) {
 }
 const verifyTokenAndAdmin = (req, res, next) => {
   verify(req, res, () => {
-    if (req.user.isAdmin) {
+    if (req.user?.isAdmin) {
       next();
     } else {
       res.status(403).json("you are not allowed to do that");
