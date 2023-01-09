@@ -48,10 +48,7 @@ const Login = () => {
       .post(`/auth/admin-login`, details)
       .then((response) => {
         localStorage.setItem("user", JSON.stringify(response.data.other));
-        localStorage.setItem(
-          "accessToken",
-          JSON.stringify(response.data.accessToken)
-        );
+        localStorage.setItem("accessToken", response.data.accessToken);
 
         setAdminDetails(response.data);
 
