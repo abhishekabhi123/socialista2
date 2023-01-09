@@ -5,6 +5,8 @@ function verify(req, res, next) {
     req.headers?.cookie?.split("=")[1] || req.headers?.token?.split(" ")[1];
   console.log(req.headers?.cookie?.split("=")[1]);
   console.log(req.headers?.token?.split(" ")[1]);
+  console.log(req.headers);
+  console.log(req.cookie);
 
   if (authHeader) {
     const token = authHeader;
@@ -24,7 +26,7 @@ function verify(req, res, next) {
       }
     });
   } else {
-    console.log(req.user);
+    // console.log(req.user);
     return res.status(401).json("You are not authenticated!");
     // next()
   }
