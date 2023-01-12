@@ -37,8 +37,8 @@ app.use(express.json());
 app.use(
   cors({
     origin: [
-      "https://liansocialmedia.ml",
       "https://api.liansocialmedia.ml/api",
+      "https://liansocialmedia.ml",
     ],
   })
 );
