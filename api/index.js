@@ -42,6 +42,7 @@ app.use(
       "http://localhost:4001",
       "https://socialista-app.onrender.com",
       "https://socialista-admin.onrender.com",
+      "https://www.liansocialmedia.ml",
     ],
   })
 );
