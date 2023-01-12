@@ -36,14 +36,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(
   cors({
-    origin: [
-      "http://localhost:3009",
-      "https://www.coffetimes.ml",
-      "http://localhost:4001",
-      "https://socialista-app.onrender.com",
-      "https://socialista-admin.onrender.com",
-      "https://www.liansocialmedia.ml",
-    ],
+    origin: ["https://liansocialmedia.ml"],
   })
 );
 app.use(cookieParser());
