@@ -40,6 +40,7 @@ app.use(
       "https://admin.liansocialmedia.ml",
       "https://liansocialmedia.ml",
       "https://api.liansocialmedia.ml",
+      "*",
     ],
   })
 );
