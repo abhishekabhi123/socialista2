@@ -36,10 +36,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(
   cors({
-    origin: [
-      "https://api.liansocialmedia.ml",
-      "https://www.liansocialmedia.ml",
-    ],
+    origin: ["https://api.liansocialmedia.ml", "https://liansocialmedia.ml"],
   })
 );
 app.use(cookieParser());
@@ -54,6 +51,6 @@ app.use("/api/conversations", conversationRoute);
 app.use("/api/messages", messageRoute);
 app.use("/api/notifications", notificationRoute);
 
-app.listen(8900, () => {
+app.listen(8800, () => {
   console.log("server is running");
 });
