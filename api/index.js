@@ -36,7 +36,11 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(
   cors({
-    origin: ["https://admin.liansocialmedia.ml", "https://liansocialmedia.ml"],
+    origin: [
+      "https://admin.liansocialmedia.ml",
+      "https://liansocialmedia.ml",
+      "https://api.liansocialmedia.ml",
+    ],
   })
 );
 app.use(cookieParser());
