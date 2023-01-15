@@ -1,6 +1,10 @@
 const io = require("socket.io")(4000, {
   cors: {
-    origin: ["https://liansocialmedia.ml", "https://api.liansocialmedia.ml"],
+    origin: [
+      "https://liansocialmedia.ml",
+      "https://api.liansocialmedia.ml",
+      "http://localhost:4000",
+    ],
   },
 });
 
